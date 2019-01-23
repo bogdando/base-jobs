@@ -1,0 +1,144 @@
+# Shared zuul config common to all opendev tenants.
+# Contains definitions of trusted jobs
+
+
+# Changes to this job require a special procedure, because they can
+# not be tested before landing, and if they are faulty, they will
+# break all jobs, meaning subsequent corrections will not be able to
+# land.  To make a change:
+#
+# 1) Ensure that base-test and its playbooks are identical to base.
+# 2) Make the change to base-test and/or its playbooks.
+# 3) Merge the change from step 2.  No jobs normally use base-test, so
+#    this is safe.
+# 4) Propose a change to a job to reparent it to base-test.  Choose a
+#    job which will exercise whatever you are changing.  The
+#    "unittests" job in zuul-jobs is a good choice.  Use [DNM] in the
+#    commit subject so that people know not to merge the change.  Set
+#    it to "Work in progress" so people don't review it.
+# 5) Once test results arrive for the change in step 2, make a change
+#    which copies the job and/or playbooks of base-test to base.  In
+#    the commit message, link to (without using Depends-On:) the
+#    change from step 4 so reviewers can see the test results.
+# 6) Once the change in step 5 merges, abandon the change from step 4.
+
+- secret:
+    name: site_logs
+    data:
+      fqdn: logs.openstack.org
+      path: /srv/static/logs
+      ssh_known_hosts: |
+          logs.openstack.org,23.253.108.137,2001:4800:7817:104:be76:4eff:fe05:dbee ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDcvLuGLagUAZfc0BThLus8ufSPCrIhDtG0BdXvhblJjvIbkuELD3dRWRZVSYZAdzGZRY3t6vTAcguTrkbQg5ngXfdfF+OKPkaH8DiZwAX/1g/iRXhInkZTGBVqHo9pLAMeNNwviSy2JjpTqdD6fLEkHwW+uw4E2YZhYivctTSbOepMkzAtFV0w5cpyBzjAT/Hax2x5un6es8R0Iw3AAnUmtapn5e5NCrg2rPNpd0nve84wUavvbC2DeGDOZQdnIahwo60Sder5ZE/x6cG39bkSDdgFQArAzrNrH6BHmNGjfFPpnGmfc7P8gQwDPtMf02HvKapqATXpIxdbSGimWLL
+      ssh_username: jenkins
+      ssh_private_key: !encrypted/pkcs1-oaep
+        - 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
+
+- job:
+    name: base
+    parent: null
+    abstract: true
+    description: |
+      The base job for OpenDev's installation of Zuul.
+
+      All jobs ultimately inherit from this.  It runs a pre-playbook
+      which copies all of the job's prepared git repos on to all of
+      the nodes in the nodeset.  It runs a post-playbook which copies
+      all of the files in the logs/ subdirectory of the executor
+      work directory to the logserver.
+
+      It also sets default timeout and nodeset values (which may be
+      overidden).
+
+      Responds to these variables:
+
+      .. zuul:jobvar:: base_serial
+         :default: Omitted
+
+         This sets the serial keyword in the pre and post playbooks
+         which can be an integer or percentage.
+
+         See ansible documentation for more information:
+         http://docs.ansible.com/ansible/latest/playbooks_delegation.html
+
+    pre-run: playbooks/base/pre.yaml
+    post-run:
+      - playbooks/base/post.yaml
+      - playbooks/base/post-logs.yaml
+    roles:
+      - zuul: openstack-infra/zuul-jobs
+    vars:
+      ara_report_type: database
+      ara_report_path: ara-report
+    timeout: 1800
+    post-timeout: 1800
+    nodeset:
+      nodes:
+        - name: ubuntu-xenial
+          label: ubuntu-xenial
+    secrets:
+      - site_logs
+
+# See the procedure described above "base" before making changes to
+# this job.
+- job:
+    name: base-test
+    parent: null
+    description: |
+      A job to test changes to the base job without disturbing the
+      main job in production.  Not for general use.
+    pre-run: playbooks/base-test/pre.yaml
+    post-run:
+      - playbooks/base-test/post.yaml
+      - playbooks/base-test/post-logs.yaml
+    roles:
+      - zuul: openstack-infra/zuul-jobs
+    timeout: 1800
+    post-timeout: 1800
+    vars:
+      ara_report_type: database
+      ara_report_path: ara-report
+    nodeset:
+      nodes:
+        - name: ubuntu-xenial
+          label: ubuntu-xenial
+    secrets:
+      - site_logs
