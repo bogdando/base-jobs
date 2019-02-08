@@ -11,7 +11,7 @@ usable IPv6 default route, otherwise IPv4.
 **Role Variables**
 
 .. zuul:rolevar:: unbound_primary_nameserver_v4
-   :default: 208.67.222.222 (OpenDNS)
+   :default: 1.1.1.1 (CloudFlare)
 
    The primary IPv4 nameserver for fowarding requests
 
@@ -21,7 +21,7 @@ usable IPv6 default route, otherwise IPv4.
    The secondary IPv4 nameserver for fowarding requests
 
 .. zuul:rolevar:: unbound_primary_nameserver_v6
-   :default: 2620:0:ccc::2 (OpenDNS)
+   :default: 2606:4700:4700::1111 (CloudFlare)
 
    The primary IPv6 nameserver for fowarding requests
 
