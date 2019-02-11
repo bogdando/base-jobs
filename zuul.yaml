@@ -142,3 +142,11 @@
           label: ubuntu-xenial
     secrets:
       - site_logs
+
+- project:
+    check:
+      jobs:
+        - openstack-zuul-jobs-linters
+    gate:
+      jobs:
+        - openstack-zuul-jobs-linters
