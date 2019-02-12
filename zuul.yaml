@@ -144,6 +144,8 @@
       - site_logs
 
 - project:
+    templates:
+      - build-tox-docs
     check:
       jobs:
         - openstack-zuul-jobs-linters
