@@ -143,6 +143,77 @@
     secrets:
       - site_logs
 
+- secret:
+    name: opendev-intermediate-registry
+    data:
+      host: insecure-ci-registry.opendev.org
+      port: 5000
+      username: zuul
+      password: !encrypted/pkcs1-oaep
+        - AT70uhYcK9nhoiysHdUjr2sBiKK8T0LVNTQ8uwCd0UtXQll+sUtopXlr/P8IqfJ6kDoIq
+          ZAkptew+p2GB2a6OAfJE5LVCD420XBp4oePDrV6kmxkZTX9Wd8V5/zh/wLi2n5PmI4s0c
+          DfexUX+WYj5S90It41IyOwGVOBOfEqS4heh892q6Qj66+u1/i90JcXeSnPiMaqCr0UIl5
+          hs26L3J6VM4ikO88XvmYwSKaHFWJfHM1G5BgD0DjnRdpXX1aVNxTeJXQvfOJnK2da0tzI
+          nRHRCxhRPvSWmvjoGSZDJxY6v1DfjuT4AsLTZ/xnYUBNBrwbppjlqzLJ871Vw3GQDdfDG
+          qcQ+jCwhp6BSoA7EKXaWhGIqDHzsSxeBbIqs2afu0YqEOQthxUzrsPHuE1y7qijS3DNN8
+          scOGG5x3nisd++sesSOO+rs0DbZHJ1TNAdpd/rmrUtbPi++AkDbx+fEriGQdhX111IwFY
+          V2femI+Y/SJepu9yf1ps9hnj1jqoBF9ano6fRBJAXSg58fBu17YOxFWAllTFcHzFjXQCz
+          38gEa9baO7nxIQ5tK/0dPFvNwoTpPZD4M3Z7kSFO3jWZ7Ur+5rUGnt3R8jp38UyVC5g0J
+          o/0JvF1nS8CyID5c3oyVBMSx39xWhgYzNtKZRAdB5qEBK4Lbjy7TnDS4FE4WKA=
+
+- job:
+    name: opendev-buildset-registry
+    description: |
+      Inherit from this job to get a buildset registry which interacts
+      with the intermediate CI registry to share speculative container
+      images between projects.
+    pre-run: playbooks/buildset-registry/pre.yaml
+    post-run: playbooks/buildset-registry/post.yaml
+    secrets:
+      - secret: opendev-intermediate-registry
+        name: intermediate_registry
+
+- job:
+    name: opendev-build-docker-image
+    parent: opendev-buildset-registry
+    description: |
+      Starts a buildset registry and builds one or more docker images.
+
+      Analog of build-docker-image job, but with a buildset registry.
+
+      .. include:: ../../playbooks/docker-image/README.rst
+    pre-run: playbooks/docker-image/pre.yaml
+    run: playbooks/docker-image/run.yaml
+    provides: docker-image
+    requires: docker-image
+
+- job:
+    name: opendev-upload-docker-image
+    parent: opendev-build-docker-image
+    description: |
+      Starts a buildset registry and builds and uploads one or more
+      docker images to docker.io.
+
+      Analog of upload-docker-image job, but with a buildset registry.
+
+      .. include:: ../../playbooks/docker-image/README.rst
+      .. include:: ../../playbooks/docker-image/credentials.rst
+    post-run: playbooks/docker-image/upload.yaml
+
+- job:
+    name: opendev-promote-docker-image
+    parent: promote-docker-image
+    description: |
+      Retag a previously-uploaded docker image.
+
+      Analog of promote-docker-image job.
+
+      .. include:: ../../playbooks/docker-image/README.rst
+      .. include:: ../../playbooks/docker-image/credentials.rst
+    post-run: playbooks/docker-image/promote.yaml
+    nodeset:
+      nodes: []
+
 - project:
     templates:
       - build-tox-docs

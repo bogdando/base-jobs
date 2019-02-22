@@ -1,0 +1,9 @@
+- hosts: all
+  roles:
+    - install-docker
+    - run-buildset-registry
+    - use-buildset-registry
+
+- hosts: localhost
+  roles:
+    - pull-from-intermediate-registry
