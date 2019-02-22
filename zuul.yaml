@@ -182,7 +182,6 @@
       Analog of build-docker-image job, but with a buildset registry.
 
       .. include:: ../../playbooks/docker-image/README.rst
-    pre-run: playbooks/docker-image/pre.yaml
     run: playbooks/docker-image/run.yaml
     provides: docker-image
     requires: docker-image
