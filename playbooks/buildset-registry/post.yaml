@@ -1,3 +1,16 @@
 - hosts: localhost
   roles:
     - push-to-intermediate-registry
+  tasks:
+    - name: Create container log dir
+      file:
+        path: "{{ ansible_user_dir }}/zuul-output/logs/docker"
+        state: directory
+
+    - name: Save registry container logs
+      loop:
+        - buildset_proxy
+        - buildset_registry
+      shell: "docker logs {{ item }} &> {{ ansible_user_dir }}/zuul-output/logs/docker/{{item}}.txt"
+      args:
+        executable: /bin/bash
