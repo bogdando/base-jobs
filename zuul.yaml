@@ -210,9 +210,6 @@
 
       .. include:: ../../playbooks/docker-image/README.rst
       .. include:: ../../playbooks/docker-image/credentials.rst
-    post-run: playbooks/docker-image/promote.yaml
-    nodeset:
-      nodes: []
 
 - project:
     templates:
