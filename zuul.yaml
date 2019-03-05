@@ -173,6 +173,7 @@
     secrets:
       - secret: opendev-intermediate-registry
         name: intermediate_registry
+    requires: docker-image
 
 - job:
     name: opendev-build-docker-image
@@ -185,7 +186,6 @@
       .. include:: ../../playbooks/docker-image/README.rst
     run: playbooks/docker-image/run.yaml
     provides: docker-image
-    requires: docker-image
 
 - job:
     name: opendev-upload-docker-image
