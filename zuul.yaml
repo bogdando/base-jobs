@@ -138,8 +138,8 @@
       ara_report_path: ara-report
     nodeset:
       nodes:
-        - name: ubuntu-xenial
-          label: ubuntu-xenial
+        - name: ubuntu-bionic
+          label: ubuntu-bionic
     secrets:
       - site_logs
 
