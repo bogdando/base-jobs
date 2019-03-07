@@ -112,8 +112,8 @@
     post-timeout: 1800
     nodeset:
       nodes:
-        - name: ubuntu-xenial
-          label: ubuntu-xenial
+        - name: ubuntu-bionic
+          label: ubuntu-bionic
     secrets:
       - site_logs
 
