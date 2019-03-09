@@ -4,12 +4,18 @@
 
 - hosts: all
   tasks:
+    - name: Check if buildset registry is running
+      command: "docker ps"
+      register: docker_ps
+
     - name: Create container log dir
+      when: "'buildset_registry' in docker_ps.stdout"
       file:
         path: "{{ ansible_user_dir }}/zuul-output/logs/docker"
         state: directory
 
     - name: Save registry container logs
+      when: "'buildset_registry' in docker_ps.stdout"
       loop:
         - buildset_proxy
         - buildset_registry
