@@ -7,7 +7,7 @@
 - hosts: "{{ site_logs.fqdn }}"
   gather_facts: False
   roles:
-    - role: test-upload-logs
+    - role: upload-logs
       zuul_log_url: "http://logs.openstack.org"
 
 - hosts: localhost
@@ -15,5 +15,7 @@
   # successful jobs.
   ignore_errors: yes
   roles:
+    # TODO do we want to assume subunit on opendev or should this move
+    # into tenant config
     - submit-logstash-jobs
     - submit-subunit-jobs

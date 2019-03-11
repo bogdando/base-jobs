@@ -31,15 +31,10 @@
   roles:
     - validate-host
     - use-cached-repos
-    - test-mirror-workspace-git-repos
+    - mirror-workspace-git-repos
     - mirror-info
     - role: configure-mirrors
       set_apt_mirrors_trusted: True
     - role: fetch-zuul-cloner
       destination: "/usr/zuul-env/bin/zuul-cloner"
       repo_src_dir: "/home/zuul/src/git.openstack.org"
-
-  pre_tasks:
-    - name: Check that regional mirror is online
-      uri:
-        url: "http://{{ zuul_site_mirror_fqdn }}"
