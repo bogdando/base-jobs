@@ -150,16 +150,16 @@
       port: 5000
       username: zuul
       password: !encrypted/pkcs1-oaep
-        - AT70uhYcK9nhoiysHdUjr2sBiKK8T0LVNTQ8uwCd0UtXQll+sUtopXlr/P8IqfJ6kDoIq
-          ZAkptew+p2GB2a6OAfJE5LVCD420XBp4oePDrV6kmxkZTX9Wd8V5/zh/wLi2n5PmI4s0c
-          DfexUX+WYj5S90It41IyOwGVOBOfEqS4heh892q6Qj66+u1/i90JcXeSnPiMaqCr0UIl5
-          hs26L3J6VM4ikO88XvmYwSKaHFWJfHM1G5BgD0DjnRdpXX1aVNxTeJXQvfOJnK2da0tzI
-          nRHRCxhRPvSWmvjoGSZDJxY6v1DfjuT4AsLTZ/xnYUBNBrwbppjlqzLJ871Vw3GQDdfDG
-          qcQ+jCwhp6BSoA7EKXaWhGIqDHzsSxeBbIqs2afu0YqEOQthxUzrsPHuE1y7qijS3DNN8
-          scOGG5x3nisd++sesSOO+rs0DbZHJ1TNAdpd/rmrUtbPi++AkDbx+fEriGQdhX111IwFY
-          V2femI+Y/SJepu9yf1ps9hnj1jqoBF9ano6fRBJAXSg58fBu17YOxFWAllTFcHzFjXQCz
-          38gEa9baO7nxIQ5tK/0dPFvNwoTpPZD4M3Z7kSFO3jWZ7Ur+5rUGnt3R8jp38UyVC5g0J
-          o/0JvF1nS8CyID5c3oyVBMSx39xWhgYzNtKZRAdB5qEBK4Lbjy7TnDS4FE4WKA=
+        - Y38es0iMk5vIGNZ9/FQtSb65hUqAvfduUV3pPnhURbMbEMuZpPiKRSxRaGWOVOZ0VcxaP
+          0eVYUSIHm+1n3+FK10ivFCl+EzanyFL70vleUxqHcN5dwTuevmB9kNp9FH8K45OKRvd1g
+          t7cpjMfbDV2iFik1uUkevbLzJZI+efXI0KLwCUYFifEWcl2exrqw8mudbmjjfxe0Prz11
+          EBxMBxCjLi3WEVvrquB76jW7p+ifgKJQc4FqUjzmLMI2xOeD1s4f+23InJOoRHKNC2lZu
+          /N2WSHQWxkebZnavjQTlshlBygD3etgkkYEjand9vcwWqTB0xnDagEUcrjl0axKJmPzXb
+          fGeyHrqld+IDaGxZP+JHcCZS5RNfXUOUt97Kgs9yzBtLwS+Lp4mqXXHvH1N17WFrT8YTD
+          cNxiFwR/wuq1g7AZWs0ej7rMBDF2rDnVV6/+8RWlqIhIjtCm4C8IsX/vm2/VsLTuNWdAM
+          JepYSbDvSQ5X55Ed3cZlGk+iPbfNFPb+EMIj3P7bxUjErQeT/hAhD6uKipSnisz+L6+RI
+          Ry8sLIVUbzLpIJKfcvo6xQCnepVdkF9dZET3prfnCf40MjCGeAITvgg1WcGX+yTiSQajr
+          oNz3bbxNeb2+MOucogQBwiSUnRPhpk2e+oMBVXGvDBjaHG1W0xakwMgQ9fIspw=
 
 - job:
     name: opendev-buildset-registry
