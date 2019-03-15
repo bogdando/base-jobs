@@ -164,9 +164,16 @@
 - job:
     name: opendev-buildset-registry
     description: |
-      Inherit from this job to get a buildset registry which interacts
-      with the intermediate CI registry to share speculative container
-      images between projects.
+      Starts a buildset registry which interacts with the intermediate
+      CI registry to share speculative container images between
+      projects.
+
+      Configure any jobs which require the use of a buildset registry
+      to depend on this job using the "dependencies" job attribute.
+
+      This job will pause after starting the registry so that it is
+      available to any jobs which depend on it.  Once all such jobs
+      are complete, this job will finish.
     pre-run: playbooks/buildset-registry/pre.yaml
     run: playbooks/buildset-registry/run.yaml
     post-run: playbooks/buildset-registry/post.yaml
@@ -179,7 +186,10 @@
     name: opendev-build-docker-image
     parent: opendev-buildset-registry
     description: |
-      Starts a buildset registry and builds one or more docker images.
+      Starts a buildset registry (if one has not already been started,
+      e.g., by invoking :zuul:job:`opendev-buildset-registry` and
+      specifying it as a dependency) and builds one or more docker
+      images.
 
       Analog of build-docker-image job, but with a buildset registry.
 
