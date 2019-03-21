@@ -1,0 +1,40 @@
+- hosts: localhost
+  tasks:
+    - name: Download docs archive
+      include_role:
+        name: download-artifact
+      vars:
+        download_artifact_job: opendev-tox-docs
+        download_artifact_api: "https://zuul.opendev.org/api/tenant/{{ zuul.tenant }}"
+        download_artifact_name: docs_archive
+        download_artifact_pipeline: gate
+    - name: Create working directory
+      file:
+        path: "{{ zuul.executor.work_root }}/docs"
+        state: directory
+    - name: Extract docs archive
+      unarchive:
+        src: "{{ zuul.executor.work_root }}/docs-html.tar.bz2"
+        dest: "{{ zuul.executor.work_root }}/docs"
+    - name: Write branch marker text
+      copy:
+        dest: "{{ zuul.executor.work_root }}/docs/.root-marker"
+        content: "Project: {{ zuul.project.name }} Branch: {{ zuul.branch }} Build: {{ zuul.build }} Revision: {{ zuul.ref }}"
+    - name: Set publication directory to latest
+      when: "zuul.branch == 'master'"
+      set_fact:
+        publication_dir: latest
+    - name: Set publication directory to branch
+      when: "zuul.branch != 'master'"
+      set_fact:
+        publication_dir: "{{ zuul.branch }}"
+    - name: Create redirect htaccess file
+      copy:
+        dest: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/.htaccess"
+        content: "Redirect 302 /{{ zuul.project.name }} /{{ zuul.project.name }}/latest"
+    - name: Upload to AFS
+      include_role:
+        name: upload-afs
+      vars:
+        afs_source: "{{ zuul.executor.work_root }}/docs/"
+        afs_target: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ publication_dir }}"

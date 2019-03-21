@@ -221,6 +221,30 @@
       .. include:: ../../playbooks/docker-image/README.rst
       .. include:: ../../playbooks/docker-image/credentials.rst
 
+- job:
+    name: opendev-tox-docs
+    # This is not parented to tox-docs because the post playbook
+    # differs.
+    description: |
+      Build documentation with "tox".
+
+      Uses tox with the ``docs`` environment.
+    vars:
+      tox_envlist: docs
+      bindep_profile: compile doc
+    pre-run: playbooks/tox-docs/pre.yaml
+    run: playbooks/tox-docs/run.yaml
+    post-run: playbooks/tox-docs/post.yaml
+    success-url: docs/
+
+- job:
+    name: opendev-promote-docs
+    description: |
+      Publish a previously built documentation tarball.
+    run: playbooks/docs/promote.yaml
+    nodeset:
+      nodes: []
+
 - project:
     templates:
       - build-tox-docs
