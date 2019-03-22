@@ -28,6 +28,10 @@
       when: "zuul.branch != 'master'"
       set_fact:
         publication_dir: "{{ zuul.branch }}"
+    - name: Create publication directory
+      file:
+        path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/"
+        state: directory
     - name: Create redirect htaccess file
       copy:
         dest: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/.htaccess"
