@@ -246,11 +246,14 @@
       nodes: []
 
 - project:
-    templates:
-      - build-tox-docs
     check:
       jobs:
+        - opendev-tox-docs
         - openstack-zuul-jobs-linters
     gate:
       jobs:
+        - opendev-tox-docs
         - openstack-zuul-jobs-linters
+    promote:
+      jobs:
+        - opendev-promote-docs
