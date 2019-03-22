@@ -28,6 +28,9 @@
       when: "zuul.branch != 'master'"
       set_fact:
         publication_dir: "{{ zuul.branch }}"
+    - name: Get an AFS token
+      include_role:
+        name: create-afs-token
     - name: Create publication directory
       file:
         path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/"
@@ -42,3 +45,6 @@
       vars:
         afs_source: "{{ zuul.executor.work_root }}/docs/"
         afs_target: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ publication_dir }}"
+    - name: Destroy AFS token
+      include_role:
+        name: destroy-afs-token

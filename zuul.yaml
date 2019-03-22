@@ -72,6 +72,22 @@
           jVFWkZZRprDU6/5zgZPTLHOfz00IoMbGBKWSfvuOhF5l6VpSC3JVvcRd6/bivUq/1XkzP
           uMv41vSFc4Kac1KmgAi96zglyRkzQgYVtLVNYyKbuLhVfx4U34mal/05sU3/MI=
 
+- secret:
+    name: opendev-zuul-docs
+    data:
+      keytab: !encrypted/pkcs1-oaep
+        - nFyEj6IMXdp7UZwOQz9qAi6IlcKILCCzUqoNbchto7g2Uv8D/ZGdDU3DT+KV6ziWtv2d/
+          WBXQFjsCjE66SXpAUvtcGxj/rVqFGlayOb2WbOeo4+WvrFusNycVIs55R7I0vYyFzidZl
+          FVNP3+5Uv8N54mhFEVMudZdBO8aCwNftea5A2lLdZL/bnK071bzCKNYZAuDI/2j1VOsKx
+          JT346KdP3vqmyokqo+OxFE6QfbFHLTMgZigId3bkK01lpI0TBY2Wiv4rF76ErQWe/eghB
+          yOwrO1Oh2kkHADsrjrJ3rKGI8ZkWpgYIxKExXH9IAedbYaWhz7unvVrjUVjR/QIySv/u7
+          dENCrZhx2zd429eOjUHD+NmHisWoOQnvOVfiYBFbEPL9uAC+ek7fDxB3/9z3ok6KPv9f8
+          XLMNS63cQgPjYJP6kOqjrV/FXLl30SS3ikV0wVI2ErqYn3R2ukOccKJaF4uV9HCf+/mKt
+          0Uz89b0sUTzL5JkFYz/PhdqRVGwjjRNYahQb+QzWkxw/AgNS8Pdl/ijffx5DXAY5oKnJD
+          Jpyp6oXA+W+qefPPqQlxa9EbP3emwVf/HWUdCjlCw+GjDz730P94Xd8ie6KiGq3ywYtFn
+          EuJvheVCAYjlq4lwshfNIysNA8WePvAze9T5DpVl1MayR7b1KC+R/7wM6xUCbw=
+      service_name: service/opendev-zuul@OPENSTACK.ORG
+
 - job:
     name: base
     parent: null
@@ -244,6 +260,9 @@
     run: playbooks/docs/promote.yaml
     nodeset:
       nodes: []
+    secrets:
+      - secret: opendev-zuul-docs
+        name: afs
 
 - project:
     check:
