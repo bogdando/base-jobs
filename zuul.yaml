@@ -93,6 +93,22 @@
       docs_redirect_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/.htaccess"
       docs_redirect_content: "Redirect 302 /{{ zuul.project.name }} /{{ zuul.project.name }}/latest"
 
+- secret:
+    name: opendev-pypi
+    data:
+      username: openstackci
+      password: !encrypted/pkcs1-oaep
+        - GKuFExWG2LM9nDqRn/lR2sBYzGwxsmBPI7lVCazB6mHjczmrYSgJnTsNGxGz872lgJdZg
+          GzxiqdrW5Wbof86PY6rL9wzFvrCPY7i3JhdwhyN9/V2GEKN9KzsFFwjtbSw0Ac6lRWzBA
+          /tWHERUHU1pcNG65IuSgjhSs7oxgLE5Y6JTvrbfFW9WviPfsnttgMFUZmgvHOShavy5Es
+          3T5TKnq2Seb9yERI2VdfBgFt/0yfnDgqqRG6vm60IDy7l9xTmJgsUj0dbil9mXv5YiuNO
+          Us2PcrfjXj1fMmmJYDY6QXQ3/AEswzKiDEtsS4XFUkxJdJgrZTvu61OAPajKw5r9imWhN
+          os5ZMTT720pwCnzucpDjsaECHGKcKQ8fCFFShAGgmP+8xAQmlpsLap+j5gY9EG3sAAAoE
+          9v8DzT8DR+ROfddDP02sA8xAsfdML/nG58udvAlvJj5akjZVKR8NMCFSw0//qbIVZqxI3
+          PBw3D384HOUeCJByI7Mqq9OtEpmHaytEkzrjHhhC/VaTTO53zgHyc6tMhwKgB8PEXMNeP
+          upg/65SBgTFbwmV68TpUyi9VspCV5BvRPBmR/ivNKDOE34yfx8KIa1xbYFKpucInR1c/K
+          YsOYcrXLlQDSWcn1brel5/LIh0BUvfTThCIOUpgw3thdBXUvy2gR6INgfQwMXo=
+
 - job:
     name: base
     parent: null
@@ -395,6 +411,16 @@
       - secret: opendev-zuul-docs
         name: afs
         pass-to-parent: true
+
+- job:
+    name: opendev-release-python
+    description: Release python tarballs / wheels to pypi.
+    pre-run: playbooks/release-python/pre.yaml
+    run: playbooks/release-python/run.yaml
+    post-run: playbooks/release-python/post.yaml
+    secrets:
+      - secret: opendev-pypi
+        name: pypi_info
 
 - project:
     check:
