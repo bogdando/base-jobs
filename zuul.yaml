@@ -87,6 +87,11 @@
           Jpyp6oXA+W+qefPPqQlxa9EbP3emwVf/HWUdCjlCw+GjDz730P94Xd8ie6KiGq3ywYtFn
           EuJvheVCAYjlq4lwshfNIysNA8WePvAze9T5DpVl1MayR7b1KC+R/7wM6xUCbw=
       service_name: service/opendev-zuul@OPENSTACK.ORG
+      docs_master_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/latest"
+      docs_branch_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ zuul.branch }}"
+      docs_tag_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ zuul.tag }}"
+      docs_redirect_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/.htaccess"
+      docs_redirect_content: "Redirect 302 /{{ zuul.project.name }} /{{ zuul.project.name }}/latest"
 
 - job:
     name: base
@@ -254,8 +259,58 @@
     success-url: docs/
 
 - job:
+    name: opendev-publish-tox-docs-base
+    # This is not parented to opendev-tox-docs because the post
+    # playbook differs.
+    description: |
+      Publish a ref-based documentation build.
+
+      Use this in the tag or release pipelines to publish a build
+      based on a newly-created tag.
+
+      This is an abstract job intended to be inherited from in an
+      OpenDev tenant and an appropriate secret added.
+
+      .. zuul:jobvar:: afs
+         :type: dict
+
+         This is expected to be a Zuul Secret with these keys:
+
+        .. zuul:jobvar:: keytab
+
+           The AFS keytab for the service principal.
+
+        .. zuul:jobvar:: service_name
+
+           The name of the service princpal.
+
+        .. zuul:jobvar:: docs_master_path
+
+           The full docs publication path to use if the job is run on
+           the master branch.
+
+        .. zuul:jobvar:: docs_branch_path
+
+           The full docs publication path to use if the job is run on
+           any other branch.
+
+        .. zuul:jobvar:: docs_tag_path
+
+           The full docs publication path to use if the job is run on
+           a tag.
+    abstract: True
+    vars:
+      tox_envlist: docs
+      bindep_profile: compile doc
+    pre-run: playbooks/tox-docs/pre.yaml
+    run: playbooks/tox-docs/run.yaml
+    post-run:
+      - playbooks/tox-docs/post.yaml
+      - playbooks/tox-docs/publish.yaml
+
+- job:
     name: opendev-publish-tox-docs
-    parent: opendev-tox-docs
+    parent: opendev-publish-tox-docs-base
     description: |
       Publish a ref-based documentation build.
 
@@ -265,20 +320,81 @@
     secrets:
       - secret: opendev-zuul-docs
         name: afs
+        pass-to-parent: true
 
 - job:
-    name: opendev-promote-docs
+    name: opendev-promote-docs-base
     description: |
       Publish a previously built branch-tip documentation tarball.
 
       Use this in the promote pipeline to publish a branch tip tarball
       built in the gate pipeline.
+
+      This is an abstract job intended to be inherited from in an
+      OpenDev tenant and an appropriate secret added.
+
+      .. zuul:jobvar:: afs
+         :type: dict
+
+         This is expected to be a Zuul Secret with these keys:
+
+        .. zuul:jobvar:: keytab
+
+           The AFS keytab for the service principal.
+
+        .. zuul:jobvar:: service_name
+
+           The name of the service princpal.
+
+        .. zuul:jobvar:: docs_master_path
+
+           The full docs publication path to use if the job is run on
+           the master branch.
+
+        .. zuul:jobvar:: docs_branch_path
+
+           The full docs publication path to use if the job is run on
+           any other branch.
+
+        .. zuul:jobvar:: docs_tag_path
+
+           The full docs publication path to use if the job is run on
+           a tag.
+
+        .. zuul:jobvar:: docs_redirect_path
+
+           If this variable is present, a .htaccess redirect will be
+           created at this path when the job is run on the master
+           branch.  For example, it can be used to redirect "project/"
+           to "project/latest".
+
+        .. zuul:jobvar:: docs_redirect_content
+
+           The contents of the .htaccess file in docs_redirect_path.
+
+      .. zuul:jobvar:: download_artifact_job
+
+         The name of the job which built the docs artifact which this
+         job should download and promote.
+    abstract: True
     run: playbooks/docs/promote.yaml
     nodeset:
       nodes: []
+
+- job:
+    name: opendev-promote-docs
+    parent: opendev-promote-docs-base
+    description: |
+      Publish a previously built branch-tip documentation tarball.
+
+      Use this in the promote pipeline to publish a branch tip tarball
+      built in the gate pipeline.
+    vars:
+      download_artifact_job: opendev-tox-docs
     secrets:
       - secret: opendev-zuul-docs
         name: afs
+        pass-to-parent: true
 
 - project:
     check:

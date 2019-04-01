@@ -1,26 +1,29 @@
 - hosts: localhost
   tasks:
-    - name: Write branch marker text
-      copy:
-        dest: "{{ zuul.executor.log_root }}/docs/.root-marker"
-        content: "Project: {{ zuul.project.name }} Branch: {{ zuul.branch }} Build: {{ zuul.build }} Revision: {{ zuul.ref }}"
-    - name: Set publication directory to tag
-      when: "zuul.tag is defined"
+    - name: Check execution context
+      when: "zuul.tag is not defined"
+      fail:
+        msg: "This playbook must be run in a tag-based pipeline (e.g., 'release')."
+    - include_role:
+        name: write-root-marker
+      vars:
+        root_marker_dir: "{{ zuul.executor.log_root }}/docs"
+    - name: Set target directory
       set_fact:
-        publication_dir: "{{ zuul.tag }}"
+        target_dir: "{{ afs.docs_tag_path }}"
     - name: Get an AFS token
       include_role:
         name: create-afs-token
     - name: Create publication directory
       file:
-        path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/"
+        path: "{{ target_dir }}"
         state: directory
     - name: Upload to AFS
       include_role:
         name: upload-afs
       vars:
         afs_source: "{{ zuul.executor.log_root }}/docs/"
-        afs_target: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ publication_dir }}"
+        afs_target: "{{ target_dir }}"
     - name: Destroy AFS token
       include_role:
         name: destroy-afs-token
