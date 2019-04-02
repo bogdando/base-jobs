@@ -230,6 +230,10 @@
 
       Analog of build-docker-image job, but with a buildset registry.
 
+      This job will pause after starting the registry so that it is
+      available to any jobs which depend on it.  Once all such jobs
+      are complete, this job will finish.
+
       .. include:: ../../playbooks/docker-image/README.rst
     run: playbooks/docker-image/run.yaml
     provides: docker-image
