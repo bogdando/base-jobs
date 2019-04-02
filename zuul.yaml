@@ -88,10 +88,10 @@
           EuJvheVCAYjlq4lwshfNIysNA8WePvAze9T5DpVl1MayR7b1KC+R/7wM6xUCbw=
       service_name: service/opendev-zuul@OPENSTACK.ORG
       docs_master_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/latest"
-      docs_branch_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ zuul.branch }}"
-      docs_tag_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ zuul.tag }}"
+      docs_branch_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ zuul.branch | default('_error') }}"
+      docs_tag_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/{{ zuul.tag | default('_error')  }}"
       docs_redirect_path: "/afs/.openstack.org/project/opendev.org/docs/{{ zuul.project.name }}/.htaccess"
-      docs_redirect_content: "Redirect 302 /{{ zuul.project.name }} /{{ zuul.project.name }}/latest"
+      docs_redirect_content: "RedirectMatch 302 ^/{{ zuul.project.name }}/?$ /{{ zuul.project.name }}/latest/"
 
 - secret:
     name: opendev-pypi
