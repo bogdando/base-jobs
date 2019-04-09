@@ -430,11 +430,11 @@
     check:
       jobs:
         - opendev-tox-docs
-        - openstack-zuul-jobs-linters
+        - tox-linters
     gate:
       jobs:
         - opendev-tox-docs
-        - openstack-zuul-jobs-linters
+        - tox-linters
     promote:
       jobs:
         - opendev-promote-docs
