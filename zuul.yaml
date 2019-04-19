@@ -141,7 +141,7 @@
       - playbooks/base/post.yaml
       - playbooks/base/post-logs.yaml
     roles:
-      - zuul: openstack-infra/zuul-jobs
+      - zuul: zuul/zuul-jobs
     vars:
       ara_report_type: database
       ara_report_path: ara-report
@@ -167,7 +167,7 @@
       - playbooks/base-test/post.yaml
       - playbooks/base-test/post-logs.yaml
     roles:
-      - zuul: openstack-infra/zuul-jobs
+      - zuul: zuul/zuul-jobs
     timeout: 1800
     post-timeout: 1800
     vars:
@@ -431,12 +431,12 @@
       jobs:
         - opendev-tox-docs
         - tox-linters:
-            required-projects: openstack-infra/zuul-jobs
+            required-projects: zuul/zuul-jobs
     gate:
       jobs:
         - opendev-tox-docs
         - tox-linters:
-            required-projects: openstack-infra/zuul-jobs
+            required-projects: zuul/zuul-jobs
     promote:
       jobs:
         - opendev-promote-docs
