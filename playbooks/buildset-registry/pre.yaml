@@ -4,6 +4,7 @@
       include_role:
         name: install-docker
     - name: Open the IPv4 port for the buildset registry
+      become: true
       iptables:
         action: insert
         chain: openstack-INPUT
@@ -14,6 +15,7 @@
         protocol: tcp
         ip_version: ipv4
     - name: Open the IPv6 port for the buildset registry
+      become: true
       iptables:
         action: insert
         chain: openstack-INPUT
