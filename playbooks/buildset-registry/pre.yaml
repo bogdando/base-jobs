@@ -3,6 +3,26 @@
     - name: Install docker
       include_role:
         name: install-docker
+    - name: Open the IPv4 port for the buildset registry
+      iptables:
+        action: insert
+        chain: openstack-INPUT
+        destination_port: 5000
+        jump: ACCEPT
+        match: tcp
+        ctstate: NEW
+        protocol: tcp
+        ip_version: ipv4
+    - name: Open the IPv6 port for the buildset registry
+      iptables:
+        action: insert
+        chain: openstack-INPUT
+        destination_port: 5000
+        jump: ACCEPT
+        match: tcp
+        ctstate: NEW
+        protocol: tcp
+        ip_version: ipv6
     - name: Run buildset registry (if not already running)
       when: buildset_registry is not defined
       include_role:
