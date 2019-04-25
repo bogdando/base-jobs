@@ -11,7 +11,7 @@ usable IPv6 default route, otherwise IPv4.
 **Role Variables**
 
 .. zuul:rolevar:: unbound_primary_nameserver_v4
-   :default: 1.1.1.1 (CloudFlare)
+   :default: 1.0.0.1 (CloudFlare)
 
    The primary IPv4 nameserver for fowarding requests
 
