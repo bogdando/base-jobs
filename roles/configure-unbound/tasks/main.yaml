@@ -9,11 +9,13 @@
     that:
       - unbound_config.stat.exists
 
-# ansible_default_ipv6 can either be undefined (no ipv6) or blank (no
-# routable address).  We only want to use ipv6 if it's available &
-# routable; combine these checks into this fact.
+# We only want to use ipv6 if it is both the interface ip provided by nodepool
+# and a valid address on the host. We check first that the interface_ip is
+# defined and ipv6 then check if there is an interface that can route ipv6.
 - name: Check for IPv6
   when:
+    - hostvars[inventory_hostname]['nodepool']['interface_ip'] is defined
+    - hostvars[inventory_hostname]['nodepool']['interface_ip'] |ipv6
     - hostvars[inventory_hostname]['ansible_default_ipv6'] is defined
     - hostvars[inventory_hostname]['ansible_default_ipv6']['address'] is defined
   set_fact:
