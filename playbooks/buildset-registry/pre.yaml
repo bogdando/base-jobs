@@ -8,7 +8,7 @@
       iptables:
         action: insert
         chain: openstack-INPUT
-        destination_port: 5000
+        destination_port: '5000:5001'
         jump: ACCEPT
         match: tcp
         ctstate: NEW
@@ -19,7 +19,7 @@
       iptables:
         action: insert
         chain: openstack-INPUT
-        destination_port: 5000
+        destination_port: '5000:5001'
         jump: ACCEPT
         match: tcp
         ctstate: NEW
