@@ -94,6 +94,23 @@
       docs_redirect_content: "RedirectMatch 302 ^/{{ zuul.project.name }}/?$ /{{ zuul.project.name }}/latest/"
 
 - secret:
+    name: opendev-zuul-tarballs
+    data:
+      keytab: !encrypted/pkcs1-oaep
+        - nFyEj6IMXdp7UZwOQz9qAi6IlcKILCCzUqoNbchto7g2Uv8D/ZGdDU3DT+KV6ziWtv2d/
+          WBXQFjsCjE66SXpAUvtcGxj/rVqFGlayOb2WbOeo4+WvrFusNycVIs55R7I0vYyFzidZl
+          FVNP3+5Uv8N54mhFEVMudZdBO8aCwNftea5A2lLdZL/bnK071bzCKNYZAuDI/2j1VOsKx
+          JT346KdP3vqmyokqo+OxFE6QfbFHLTMgZigId3bkK01lpI0TBY2Wiv4rF76ErQWe/eghB
+          yOwrO1Oh2kkHADsrjrJ3rKGI8ZkWpgYIxKExXH9IAedbYaWhz7unvVrjUVjR/QIySv/u7
+          dENCrZhx2zd429eOjUHD+NmHisWoOQnvOVfiYBFbEPL9uAC+ek7fDxB3/9z3ok6KPv9f8
+          XLMNS63cQgPjYJP6kOqjrV/FXLl30SS3ikV0wVI2ErqYn3R2ukOccKJaF4uV9HCf+/mKt
+          0Uz89b0sUTzL5JkFYz/PhdqRVGwjjRNYahQb+QzWkxw/AgNS8Pdl/ijffx5DXAY5oKnJD
+          Jpyp6oXA+W+qefPPqQlxa9EbP3emwVf/HWUdCjlCw+GjDz730P94Xd8ie6KiGq3ywYtFn
+          EuJvheVCAYjlq4lwshfNIysNA8WePvAze9T5DpVl1MayR7b1KC+R/7wM6xUCbw=
+      service_name: service/opendev-zuul@OPENSTACK.ORG
+      artifacts_path: "/afs/.openstack.org/project/opendev.org/tarballs/{{ zuul.project.name }}"
+
+- secret:
     name: opendev-pypi
     data:
       username: openstackci
@@ -413,6 +430,81 @@
       download_artifact_job: opendev-tox-docs
     secrets:
       - secret: opendev-zuul-docs
+        name: afs
+        pass-to-parent: true
+
+- job:
+    name: opendev-promote-artifact-base
+    description: |
+      Publish a previously built branch-tip artifact.
+
+      Use this in the promote pipeline to publish a branch tip artifact
+      built in the gate pipeline.
+
+      This is an abstract job intended to be inherited from in an
+      OpenDev tenant and an appropriate secret added.
+
+      .. zuul:jobvar:: afs
+         :type: dict
+
+         This is expected to be a Zuul Secret with these keys:
+
+        .. zuul:jobvar:: keytab
+
+           The AFS keytab for the service principal.
+
+        .. zuul:jobvar:: service_name
+
+           The name of the service princpal.
+
+        .. zuul:jobvar:: artifacts_path
+
+           The full publication path to use.
+
+      .. zuul:jobvar:: download_artifact_job
+
+         The name of the job which built the artifacts which this
+         job should download and promote.
+
+       .. zuul:jobvar:: download_artifact_name
+
+         The name of the artifact.
+    abstract: True
+    run: playbooks/artifacts/promote.yaml
+    nodeset:
+      nodes: []
+
+- job:
+    name: opendev-promote-python
+    parent: opendev-promote-artifact-base
+    description: |
+      Publish a previously built branch-tip sdist/wheels.
+
+      Use this in the promote pipeline to publish a branch tip
+      sdist and wheel(s) built in the gate pipeline.
+    vars:
+      download_artifact_job: build-python-release
+      download_artifact_name:
+        - python_sdist
+        - python_wheel
+    secrets:
+      - secret: opendev-zuul-tarballs
+        name: afs
+        pass-to-parent: true
+
+- job:
+    name: opendev-promote-javascript-content
+    parent: opendev-promote-artifact-base
+    description: |
+      Publish a previously built branch-tip javascript content archive.
+
+      Use this in the promote pipeline to publish a branch tip
+      javascript content archive built in the gate pipeline.
+    vars:
+      download_artifact_job: build-javascript-content
+      download_artifact_name: javascript_content
+    secrets:
+      - secret: opendev-zuul-tarballs
         name: afs
         pass-to-parent: true
 
