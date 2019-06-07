@@ -501,7 +501,7 @@
       Use this in the promote pipeline to publish a branch tip
       javascript content archive built in the gate pipeline.
     vars:
-      download_artifact_job: build-javascript-content
+      download_artifact_job: build-javascript-content-tarball
       download_artifact_name: javascript_content
     secrets:
       - secret: opendev-zuul-tarballs
