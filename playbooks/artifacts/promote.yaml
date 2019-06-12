@@ -26,7 +26,7 @@
       register: files
     - name: Set target directory
       set_fact:
-        target_dir: "{{ afs.artifact_path }}"
+        target_dir: "{{ afs.artifacts_path }}"
     - name: Get an AFS token
       include_role:
         name: create-afs-token
