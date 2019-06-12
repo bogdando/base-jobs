@@ -1,7 +1,8 @@
 - hosts: localhost
   vars:
     name_replacement: '.*?(-py.*?\.whl|\.tar\.gz)'
-    name_target: "{{zuul.project.short_name}}-{{zuul.branch | replace('/', '-')}}\\1"
+    name_extra: "{{ (artifact_extra_name|default('') and '-'+artifact_extra_name or '') | regex_replace('[^a-zA-z1-9_\\-.]', '') }}"
+    name_target: "{{zuul.project.short_name}}{{ name_extra }}-{{zuul.branch | replace('/', '-')}}\\1"
   tasks:
     - name: Check execution context
       when: "zuul.branch is not defined"

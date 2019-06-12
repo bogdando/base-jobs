@@ -466,9 +466,14 @@
          The name of the job which built the artifacts which this
          job should download and promote.
 
-       .. zuul:jobvar:: download_artifact_name
+      .. zuul:jobvar:: download_artifact_name
 
          The name of the artifact.
+
+      .. zuul:jobvar:: artifact_extra_name
+
+         The artifact will be renamed to PROJECT-BRANCH.ext; if this
+         argument is present, it will be PROJECT-EXTRA-BRANCH.ext.
     abstract: True
     run: playbooks/artifacts/promote.yaml
     nodeset:
@@ -503,6 +508,7 @@
     vars:
       download_artifact_job: build-javascript-content-tarball
       download_artifact_name: javascript_content
+      artifact_extra_name: js-content
     secrets:
       - secret: opendev-zuul-tarballs
         name: afs
