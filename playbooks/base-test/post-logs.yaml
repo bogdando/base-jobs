@@ -3,6 +3,7 @@
     - role: add-fileserver
       fileserver: "{{ site_logs }}"
     - role: ara-report
+    - role: generate-zuul-manifest
 
 - hosts: "{{ site_logs.fqdn }}"
   gather_facts: False
