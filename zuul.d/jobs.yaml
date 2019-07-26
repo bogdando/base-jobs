@@ -176,6 +176,7 @@
 - job:
     name: base-test
     parent: null
+    ansible-version: 2.8
     description: |
       A job to test changes to the base job without disturbing the
       main job in production.  Not for general use.
