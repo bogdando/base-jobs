@@ -9,7 +9,7 @@
   gather_facts: False
   roles:
     - role: upload-logs
-      zuul_log_url: "http://logs.openstack.org"
+      zuul_log_url: "https://logs.opendev.org"
 
 - hosts: localhost
   # NOTE(pabelanger): We ignore_errors for the following tasks as not to fail
