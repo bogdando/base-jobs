@@ -1,0 +1,5 @@
+---
+parseable: true
+skip_list:
+  # [ANSIBLE0012] Commands should not change things if nothing needs doing
+  - ANSIBLE0012
