@@ -112,8 +112,12 @@
       ara_compress_html: false
     nodeset: ubuntu-bionic
     secrets:
-      - name: log_cloud_config
-        secret: opendev-cloud-vexxhost-ymq1
+      - opendev_cloud_vexxhost_ymq1
+      - opendev_cloud_ovh_bhs1
+      - opendev_cloud_ovh_gra1
+      - opendev_rax_dfw
+      - opendev_rax_ord
+      - opendev_rax_iad
 
 - job:
     name: base-minimal
