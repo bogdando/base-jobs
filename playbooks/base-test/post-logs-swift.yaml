@@ -10,9 +10,6 @@
         zuul_log_cloud_config: '{{ item }}'
         zuul_log_partition: true
       with_random_choice:
-        - '{{ opendev_cloud_vexxhost_ymq1 }}'
-        - '{{ opendev_cloud_ovh_bhs1 }}'
-        - '{{ opendev_cloud_ovh_gra1 }}'
         - '{{ opendev_rax_dfw }}'
         - '{{ opendev_rax_ord }}'
         - '{{ opendev_rax_iad }}'
