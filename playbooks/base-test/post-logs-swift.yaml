@@ -3,6 +3,9 @@
     - name: Include ara report role
       include_role:
         name: ara-report
+    - name: Include Zuul manifest role
+      include_role:
+        name: generate-zuul-manifest
     - name: Include upload logs role
       include_role:
         name: upload-logs-swift
