@@ -112,9 +112,7 @@
       ara_compress_html: false
     nodeset: ubuntu-bionic
     secrets:
-      - opendev_rax_dfw
-      - opendev_rax_ord
-      - opendev_rax_iad
+      - opendev_cloud_vexxhost_ymq1
 
 - job:
     name: base-minimal
