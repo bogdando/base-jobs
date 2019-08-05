@@ -7,15 +7,14 @@
       include_role:
         name: generate-zuul-manifest
     - name: Include upload logs role
+      no_log: true
       include_role:
         name: upload-logs-swift
       vars:
         zuul_log_cloud_config: '{{ item }}'
         zuul_log_partition: true
       with_random_choice:
-        - '{{ opendev_rax_dfw }}'
-        - '{{ opendev_rax_ord }}'
-        - '{{ opendev_rax_iad }}'
+        - '{{ opendev_cloud_vexxhost_ymq1 }}'
 
 - hosts: localhost
   # NOTE(pabelanger): We ignore_errors for the following tasks as not to fail
