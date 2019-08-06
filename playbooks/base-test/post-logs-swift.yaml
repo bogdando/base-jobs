@@ -14,7 +14,8 @@
         zuul_log_cloud_config: '{{ item }}'
         zuul_log_partition: true
       with_random_choice:
-        - '{{ opendev_cloud_vexxhost_ymq1 }}'
+        - '{{ opendev_cloud_ovh_bhs1 }}'
+        - '{{ opendev_cloud_ovh_gra1 }}'
 
 - hosts: localhost
   # NOTE(pabelanger): We ignore_errors for the following tasks as not to fail
