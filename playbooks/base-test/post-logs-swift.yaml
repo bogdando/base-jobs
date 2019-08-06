@@ -16,6 +16,10 @@
       with_random_choice:
         - '{{ opendev_cloud_ovh_bhs1 }}'
         - '{{ opendev_cloud_ovh_gra1 }}'
+        - '{{ opendev_cloud_rax_dfw }}'
+        - '{{ opendev_cloud_rax_iad }}'
+        - '{{ opendev_cloud_rax_ord }}'
+        - '{{ opendev_cloud_vexxhost_ymq1 }}'
 
 - hosts: localhost
   # NOTE(pabelanger): We ignore_errors for the following tasks as not to fail
