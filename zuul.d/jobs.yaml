@@ -418,9 +418,10 @@
          The name of the job which built the artifacts which this
          job should download and promote.
 
-      .. zuul:jobvar:: download_artifact_name
+      .. zuul:jobvar:: download_artifact_type
 
-         The name of the artifact.
+         The type of the artifact to download (as specified in the
+         ``type`` attribute of the artifact metadata).
 
       .. zuul:jobvar:: artifact_extra_name
 
@@ -441,7 +442,7 @@
       sdist and wheel(s) built in the gate pipeline.
     vars:
       download_artifact_job: build-python-release
-      download_artifact_name:
+      download_artifact_type:
         - python_sdist
         - python_wheel
     secrets:
@@ -459,7 +460,7 @@
       javascript content archive built in the gate pipeline.
     vars:
       download_artifact_job: build-javascript-content-tarball
-      download_artifact_name: javascript_content
+      download_artifact_type: javascript_content
       artifact_extra_name: js-content
     secrets:
       - secret: opendev-zuul-tarballs
