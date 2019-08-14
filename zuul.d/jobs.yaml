@@ -365,6 +365,14 @@
 
          The name of the job which built the docs artifact which this
          job should download and promote.
+
+       .. zuul:jobvar:: write_root_marker
+
+          If this is set to false, then the root marker file is not
+          written.
+          
+          Warning: setting this parameter incorrectly can result in loss of published data.
+
     abstract: True
     run: playbooks/docs/promote.yaml
     nodeset:
