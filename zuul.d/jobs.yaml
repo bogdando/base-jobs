@@ -55,17 +55,20 @@
       - playbooks/base/post-logs.yaml
     roles:
       - zuul: zuul/zuul-jobs
-    vars:
-      ara_report_type: database
-      ara_report_path: ara-report
     timeout: 1800
     post-timeout: 1800
-    nodeset:
-      nodes:
-        - name: ubuntu-bionic
-          label: ubuntu-bionic
-    secrets:
-      - site_logs
+    vars:
+      ara_report_type: html
+      ara_report_path: ara-report
+      ara_compress_html: false
+    nodeset: ubuntu-bionic
+    secrets: &log_clouds
+      - opendev_cloud_ovh_bhs1
+      - opendev_cloud_ovh_gra1
+      - opendev_cloud_rax_dfw
+      - opendev_cloud_rax_iad
+      - opendev_cloud_rax_ord
+      - opendev_cloud_vexxhost_ymq1
 
 # See the procedure described above "base" before making changes to
 # this job.
@@ -85,39 +88,11 @@
     timeout: 1800
     post-timeout: 1800
     vars:
-      ara_report_type: database
-      ara_report_path: ara-report
-    nodeset: ubuntu-bionic
-    secrets:
-      - site_logs
-
-# NOTE(corvus): A short-term test job
-- job:
-    name: base-test-swift
-    parent: null
-    ansible-version: 2.8
-    description: |
-      Test storing logs in swift.  Not for general use.
-    pre-run: playbooks/base-test/pre.yaml
-    post-run:
-      - playbooks/base-test/post.yaml
-      - playbooks/base-test/post-logs-swift.yaml
-    roles:
-      - zuul: zuul/zuul-jobs
-    timeout: 1800
-    post-timeout: 1800
-    vars:
       ara_report_type: html
       ara_report_path: ara-report
       ara_compress_html: false
     nodeset: ubuntu-bionic
-    secrets:
-      - opendev_cloud_ovh_bhs1
-      - opendev_cloud_ovh_gra1
-      - opendev_cloud_rax_dfw
-      - opendev_cloud_rax_iad
-      - opendev_cloud_rax_ord
-      - opendev_cloud_vexxhost_ymq1
+    secrets: *log_clouds
 
 - job:
     name: base-minimal
@@ -139,15 +114,15 @@
       - playbooks/base-minimal/post-logs.yaml
     roles:
       - zuul: zuul/zuul-jobs
-    vars:
-      ara_report_type: database
-      ara_report_path: ara-report
     timeout: 1800
     post-timeout: 1800
-    nodeset: ubuntu-bionic
-    secrets:
-      - site_logs
     allowed-projects: zuul/zuul-jobs
+    vars:
+      ara_report_type: html
+      ara_report_path: ara-report
+      ara_compress_html: false
+    nodeset: ubuntu-bionic
+    secrets: *log_clouds
 
 - secret:
     name: opendev-intermediate-registry
