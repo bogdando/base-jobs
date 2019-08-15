@@ -1,7 +1,6 @@
 - hosts: localhost
   roles:
-    - role: emit-job-header
-      zuul_log_url: "https://logs.opendev.org"
+    - emit-job-header
     - log-inventory
 
 - hosts: all
