@@ -63,6 +63,7 @@
       ara_compress_html: false
     nodeset: ubuntu-bionic
     secrets: &log_clouds
+      - opendev_cloud_fn_one
       - opendev_cloud_ovh_bhs1
       - opendev_cloud_ovh_gra1
       - opendev_cloud_rax_dfw

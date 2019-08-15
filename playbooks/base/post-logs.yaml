@@ -14,6 +14,7 @@
         zuul_log_cloud_config: '{{ item }}'
         zuul_log_partition: true
       with_random_choice:
+        - '{{ opendev_cloud_fn_one }}'
         - '{{ opendev_cloud_ovh_bhs1 }}'
         - '{{ opendev_cloud_ovh_gra1 }}'
         - '{{ opendev_cloud_rax_dfw }}'
