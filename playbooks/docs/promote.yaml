@@ -22,7 +22,7 @@
         dest: "{{ zuul.executor.work_root }}/docs"
     - include_role:
         name: write-root-marker
-      when: "write_root_marker is defined and write_root_marker"
+      when: "write_root_marker"
       vars:
         root_marker_dir: "{{ zuul.executor.work_root }}/docs"
     - name: Set target directory

@@ -351,6 +351,8 @@
 
     abstract: True
     run: playbooks/docs/promote.yaml
+    vars:
+      write_root_marker: true
     nodeset:
       nodes: []
 
