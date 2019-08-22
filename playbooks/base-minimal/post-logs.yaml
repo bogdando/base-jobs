@@ -1,10 +1,23 @@
 - hosts: localhost
-  roles:
-    - role: add-fileserver
-      fileserver: "{{ site_logs }}"
-    - role: ara-report
-
-- hosts: "{{ site_logs.fqdn }}"
-  roles:
-    - role: upload-logs
-      zuul_log_url: "https://logs.opendev.org"
+  tasks:
+    - name: Include ara report role
+      include_role:
+        name: ara-report
+    - name: Include Zuul manifest role
+      include_role:
+        name: generate-zuul-manifest
+    - name: Include upload logs role
+      no_log: true
+      include_role:
+        name: upload-logs-swift
+      vars:
+        zuul_log_cloud_config: '{{ item }}'
+        zuul_log_partition: true
+      with_random_choice:
+        - '{{ opendev_cloud_fn_one }}'
+        - '{{ opendev_cloud_ovh_bhs1 }}'
+        - '{{ opendev_cloud_ovh_gra1 }}'
+        - '{{ opendev_cloud_rax_dfw }}'
+        - '{{ opendev_cloud_rax_iad }}'
+        - '{{ opendev_cloud_rax_ord }}'
+        - '{{ opendev_cloud_vexxhost_ymq1 }}'
