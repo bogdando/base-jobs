@@ -20,16 +20,17 @@
       unarchive:
         src: "{{ zuul.executor.work_root }}/docs-html.tar.bz2"
         dest: "{{ zuul.executor.work_root }}/docs"
-    - include_role:
+    - name: Write root_marker file
+      include_role:
         name: write-root-marker
       when: "write_root_marker"
       vars:
         root_marker_dir: "{{ zuul.executor.work_root }}/docs"
-    - name: Set target directory
+    - name: Set target directory if master
       when: "zuul.branch == 'master'"
       set_fact:
         target_dir: "{{ afs.docs_master_path }}"
-    - name: Set target directory
+    - name: Set target directory if not master
       when: "zuul.branch != 'master'"
       set_fact:
         target_dir: "{{ afs.docs_branch_path }}"
