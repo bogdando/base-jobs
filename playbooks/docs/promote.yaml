@@ -30,7 +30,7 @@
         root_marker_dir: "{{ zuul.executor.work_root }}/docs"
     - name: Find PDF files
       find:
-        paths: "{{ zuul.executor.work_root }}/pdf/"
+        paths: "{{ zuul.executor.work_root }}/"
         file_type: file
         patterns: "*.pdf"
       register: pdf_files
