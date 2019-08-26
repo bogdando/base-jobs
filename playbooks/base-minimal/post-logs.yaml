@@ -20,4 +20,3 @@
         - '{{ opendev_cloud_rax_dfw }}'
         - '{{ opendev_cloud_rax_iad }}'
         - '{{ opendev_cloud_rax_ord }}'
-        - '{{ opendev_cloud_vexxhost_ymq1 }}'
