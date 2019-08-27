@@ -18,9 +18,10 @@
 import os
 import json
 import re
+import traceback
 
 from ansible.module_utils.six.moves import urllib
-from ansible.module_utils.basic import AnsibleModule, get_exception
+from ansible.module_utils.basic import AnsibleModule
 
 import gear
 
@@ -199,9 +200,9 @@ def main():
             results['jobs'].append(handle)
         module.exit_json(**results)
     except Exception:
-        e = get_exception()
+        tb = traceback.format_exc()
         module.fail_json(msg='Unknown error',
-                         details=repr(e),
+                         details=tb,
                          **results)
 
 
