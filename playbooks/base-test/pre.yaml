@@ -1,6 +1,7 @@
 - hosts: localhost
   roles:
-    - emit-job-header
+    - role: emit-job-header
+      zuul_log_path_shard_build: true
     - log-inventory
 
 - hosts: all
