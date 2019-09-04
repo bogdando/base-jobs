@@ -13,6 +13,9 @@
       vars:
         zuul_log_cloud_config: '{{ item }}'
         zuul_log_partition: true
+        # Unique log prefix to avoid container name collisions when ceph is
+        # used.
+        zuul_log_container: zuul_opendev_logs
       with_random_choice:
         - '{{ opendev_cloud_fn_one }}'
         - '{{ opendev_cloud_rax_dfw }}'
