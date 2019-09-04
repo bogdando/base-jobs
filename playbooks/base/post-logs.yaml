@@ -13,6 +13,7 @@
       vars:
         zuul_log_cloud_config: '{{ item }}'
         zuul_log_partition: true
+        zuul_log_delete_after: 2592000
       with_random_choice:
         - '{{ opendev_cloud_fn_one }}'
         - '{{ opendev_cloud_rax_dfw }}'
