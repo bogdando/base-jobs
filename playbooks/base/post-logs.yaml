@@ -1,8 +1,5 @@
 - hosts: localhost
   tasks:
-    - name: Include ara report role
-      include_role:
-        name: ara-report
     - name: Include Zuul manifest role
       include_role:
         name: generate-zuul-manifest
