@@ -88,10 +88,6 @@
       - zuul: zuul/zuul-jobs
     timeout: 1800
     post-timeout: 1800
-    vars:
-      ara_report_type: html
-      ara_report_path: ara-report
-      ara_compress_html: false
     nodeset: ubuntu-bionic
     secrets: *log_clouds
 
