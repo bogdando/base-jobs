@@ -16,6 +16,8 @@
         zuul_log_delete_after: 2592000
       with_random_choice:
         - '{{ opendev_cloud_fn_one }}'
+        - '{{ opendev_cloud_ovh_bhs1 }}'
+        - '{{ opendev_cloud_ovh_gra1 }}'
         - '{{ opendev_cloud_rax_dfw }}'
         - '{{ opendev_cloud_rax_iad }}'
         - '{{ opendev_cloud_rax_ord }}'
