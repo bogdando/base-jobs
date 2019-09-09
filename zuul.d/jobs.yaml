@@ -81,6 +81,7 @@
       A job to test changes to the base job without disturbing the
       main job in production.  Not for general use.
     pre-run: playbooks/base-test/pre.yaml
+    cleanup-run: playbooks/base-test/cleanup.yaml
     post-run:
       - playbooks/base-test/post.yaml
       - playbooks/base-test/post-logs.yaml

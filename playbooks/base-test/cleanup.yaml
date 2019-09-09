@@ -1,0 +1,29 @@
+- hosts: all
+  tasks:
+    - name: get df disk usage
+      raw: df
+      register: out
+    - name: print df disk usage
+      debug:
+        var: out.stdout
+
+    - name: get df inode usage
+      raw: df -i
+      register: out
+    - name: print df inode usage
+      debug:
+        var: out.stdout
+
+    - name: get l2 networking
+      raw: ip link
+      register: out
+    - name: print l2 networking
+      debug:
+        var: out.stdout
+
+    - name: get l3 networking
+      raw: ip addr
+      register: out
+    - name: print l3 networking
+      debug:
+        var: out.stdout
