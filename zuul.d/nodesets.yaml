@@ -6,6 +6,12 @@
         label: centos-7
 
 - nodeset:
+    name: debian-buster
+    nodes:
+      - name: debian-buster
+        label: debian-buster
+
+- nodeset:
     name: debian-stable
     nodes:
       - name: debian-stretch
