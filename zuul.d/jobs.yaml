@@ -363,6 +363,12 @@
 
       Use this in the promote pipeline to publish a branch tip tarball
       built in the gate pipeline.
+
+      The documentation tarball is published to
+      https://docs.opendev.org/{{ zuul.project.name }}.
+
+      Publishes depending on branch to latest/ (for master), or the
+      basename of the branch like train (for stable/train).
     vars:
       download_artifact_job: opendev-tox-docs
     secrets:
@@ -461,18 +467,3 @@
     secrets:
       - secret: opendev-pypi
         name: pypi_info
-
-- project:
-    check:
-      jobs:
-        - opendev-tox-docs
-        - tox-linters:
-            required-projects: zuul/zuul-jobs
-    gate:
-      jobs:
-        - opendev-tox-docs
-        - tox-linters:
-            required-projects: zuul/zuul-jobs
-    promote:
-      jobs:
-        - opendev-promote-docs

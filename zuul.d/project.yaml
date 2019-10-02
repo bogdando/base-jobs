@@ -1,0 +1,11 @@
+- project:
+    templates:
+      - publish-opendev-tox-docs
+    check:
+      jobs:
+        - tox-linters:
+            required-projects: zuul/zuul-jobs
+    gate:
+      jobs:
+        - tox-linters:
+            required-projects: zuul/zuul-jobs

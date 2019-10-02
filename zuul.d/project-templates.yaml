@@ -1,0 +1,28 @@
+- project-template:
+    name: build-opendev-tox-docs
+    description: |
+      Build documentation with "tox".
+    check:
+      jobs:
+        - opendev-tox-docs
+    gate:
+      jobs:
+        - opendev-tox-docs
+
+- project-template:
+    name: publish-opendev-tox-docs
+    description: |
+      Build and publish documentation with "tox".
+
+      The documents that are build in the "gate" pipeline
+      are published via a promote job to
+      https://docs.opendev.org/{{ zuul.project.name }}.
+    check:
+      jobs:
+        - opendev-tox-docs
+    gate:
+      jobs:
+        - opendev-tox-docs
+    promote:
+      jobs:
+        - opendev-promote-docs
