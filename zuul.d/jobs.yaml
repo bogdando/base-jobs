@@ -223,23 +223,6 @@
     success-url: docs/
 
 - job:
-    name: opendev-tox-docs-temporary-test
-    parent: base-test
-    # Trying opendev-tox-docs with base-test, we can delete this once the gzip
-    # changes in base-test are copied to base
-    description: |
-      Build documentation with "tox".
-
-      Uses tox with the ``docs`` environment.
-    vars:
-      tox_envlist: docs
-      bindep_profile: compile doc
-    pre-run: playbooks/tox-docs/pre.yaml
-    run: playbooks/tox-docs/run.yaml
-    post-run: playbooks/tox-docs/post.yaml
-    success-url: docs/
-
-- job:
     name: opendev-publish-tox-docs-base
     # This is not parented to opendev-tox-docs because the post
     # playbook differs.
