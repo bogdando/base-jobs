@@ -16,9 +16,6 @@
 
     - name: Save registry container logs
       when: "'buildset_registry' in docker_ps.stdout"
-      loop:
-        - buildset_proxy
-        - buildset_registry
-      shell: "docker logs {{ item }} &> {{ ansible_user_dir }}/zuul-output/logs/docker/{{item}}.txt"
+      shell: "docker logs {{ item }} &> {{ ansible_user_dir }}/zuul-output/logs/docker/buildset_registry.txt"
       args:
         executable: /bin/bash
