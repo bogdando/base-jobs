@@ -17,7 +17,6 @@
         zuul_log_container: zuul_opendev_logs
         zuul_log_include_download_script: true
       with_random_choice:
-        - '{{ opendev_cloud_fn_one }}'
         - '{{ opendev_cloud_ovh_bhs1 }}'
         - '{{ opendev_cloud_ovh_gra1 }}'
         - '{{ opendev_cloud_rax_dfw }}'
