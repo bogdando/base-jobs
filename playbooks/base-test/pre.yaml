@@ -32,5 +32,5 @@
     - validate-host
     - prepare-workspace-git
     - mirror-info
-    - role: configure-mirrors
+    - role: configure-mirrors-test
       set_apt_mirrors_trusted: True
