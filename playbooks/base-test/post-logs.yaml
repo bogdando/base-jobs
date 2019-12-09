@@ -17,8 +17,11 @@
         zuul_log_container: zuul_opendev_logs
         zuul_log_include_download_script: true
       with_random_choice:
-        - '{{ opendev_cloud_test_ovh_bhs }}'
-        - '{{ opendev_cloud_test_ovh_gra }}'
+        - '{{ opendev_cloud_ovh_bhs }}'
+        - '{{ opendev_cloud_ovh_gra }}'
+        - '{{ opendev_cloud_rax_dfw }}'
+        - '{{ opendev_cloud_rax_iad }}'
+        - '{{ opendev_cloud_rax_ord }}'
 
 - hosts: localhost
   # NOTE(pabelanger): We ignore_errors for the following tasks as not to fail

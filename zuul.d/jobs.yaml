@@ -65,8 +65,8 @@
     nodeset: ubuntu-bionic
     secrets: &log_clouds
       - opendev_cloud_fn_one
-      - opendev_cloud_ovh_bhs1
-      - opendev_cloud_ovh_gra1
+      - opendev_cloud_ovh_bhs
+      - opendev_cloud_ovh_gra
       - opendev_cloud_rax_dfw
       - opendev_cloud_rax_iad
       - opendev_cloud_rax_ord
@@ -91,9 +91,7 @@
     timeout: 1800
     post-timeout: 1800
     nodeset: ubuntu-bionic
-    secrets:
-      - opendev_cloud_test_ovh_bhs
-      - opendev_cloud_test_ovh_gra
+    secrets: *log_clouds
 
 - job:
     name: base-minimal
