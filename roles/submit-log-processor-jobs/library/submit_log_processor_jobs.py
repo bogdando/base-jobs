@@ -166,6 +166,8 @@ class LogMatcher(object):
         fields["log_url"] = log_url
         if 'executor' in zuul and 'hostname' in zuul['executor']:
             fields["zuul_executor"] = zuul['executor']['hostname']
+        if 'attempts' in zuul:
+            fields["zuul_attempts"] = zuul['attempts']
         return fields
 
 
