@@ -60,12 +60,6 @@
         label: ubuntu-bionic-arm64
 
 - nodeset:
-    name: ubuntu-trusty
-    nodes:
-      - name: ubuntu-trusty
-        label: ubuntu-trusty
-
-- nodeset:
     name: ubuntu-xenial-arm64
     nodes:
       - name: ubuntu-xenial-arm64
