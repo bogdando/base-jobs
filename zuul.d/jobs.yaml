@@ -155,6 +155,7 @@
       This job will pause after starting the registry so that it is
       available to any jobs which depend on it.  Once all such jobs
       are complete, this job will finish.
+    pre-run: playbooks/buildset-registry/pre.yaml
     run: playbooks/buildset-registry/run.yaml
     post-run: playbooks/buildset-registry/post.yaml
     secrets:
