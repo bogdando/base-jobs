@@ -32,7 +32,3 @@
     - name: Use buildset registry
       include_role:
         name: use-buildset-registry
-
-- hosts: localhost
-  roles:
-    - pull-from-intermediate-registry
