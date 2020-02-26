@@ -179,7 +179,6 @@
       are complete, this job will finish.
 
       .. include:: ../../playbooks/docker-image/README.rst
-    pre-run: playbooks/docker-image/pre.yaml
     run: playbooks/docker-image/run.yaml
     provides: docker-image
 
