@@ -6,18 +6,6 @@
 
 - hosts: all
   pre_tasks:
-    - name: Temporary fix for /root for virtualenv 20
-      command: chmod o+rx /root
-      become: yes
-      tags:
-        - skip_ansible_lint
-      failed_when: false
-    - name: Temporary fix for /root/local for virtualenv 20
-      command: chmod -R o+rX /root/.local
-      become: yes
-      tags:
-        - skip_ansible_lint
-      failed_when: false
     # NOTE(pabelanger): Until we hit the validate-host role, we have a minimal
     # set of ansible variables collected by zuul-executor. This doesn't include
     # network variables (ansible_default_ipv4 / ansible_default_ipv6) so gather
