@@ -47,15 +47,17 @@
     - role: configure-mirrors
       set_apt_mirrors_trusted: True
   post_tasks:
-    - name: Pin importlib-resources to 1.0.2 to fix Virtualenv and Tox
+    - name: |
+        Pin importlib-resources to 1.0.2 and virtualenv to 20.0.5 in order
+        to fix Virtualenv and Tox
       become: yes
       shell: |
         if type -p pip3 ; then
           # Tox and virtualenv will be python3 installed on platforms with pip3
-          pip3 install --upgrade importlib-resources==1.0.2
+          pip3 install --upgrade importlib-resources==1.0.2 virtualenv==20.0.5
         else
           # Centos 7 shouldnt have python3 by default and need a pip2 install
-          pip install --upgrade importlib-resources==1.0.2
+          pip install --upgrade importlib-resources==1.0.2 virtualenv==20.0.5
         fi
       args:
         executable: /bin/bash
