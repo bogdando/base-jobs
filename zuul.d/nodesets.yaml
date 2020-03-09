@@ -26,8 +26,8 @@
 - nodeset:
     name: fedora-latest
     nodes:
-      - name: fedora-29
-        label: fedora-29
+      - name: fedora-30
+        label: fedora-30
 
 - nodeset:
     name: gentoo-17-0-systemd
