@@ -161,6 +161,8 @@
     secrets:
       - secret: opendev-intermediate-registry
         name: intermediate_registry
+    vars:
+      docker_mirror_base_url: "http://{{ zuul_site_mirror_fqdn }}/deb-docker"
 
 - job:
     name: opendev-build-docker-image-base
