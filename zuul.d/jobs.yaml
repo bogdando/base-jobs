@@ -221,6 +221,19 @@
       .. include:: ../../playbooks/docker-image/credentials.rst
 
 - job:
+    name: opendev-buildset-registry-consumer
+    description: |
+      Pull from the intermediate registry
+
+      This is a parent for jobs which use container images and expect
+      a buildset registry to be running.  It pulls images from the
+      intermediate registry into it.
+    pre-run: playbooks/docker-image/pre.yaml
+    secrets:
+      - secret: opendev-intermediate-registry
+        name: intermediate_registry
+
+- job:
     name: opendev-tox-docs
     # This is not parented to tox-docs because the post playbook
     # differs.
