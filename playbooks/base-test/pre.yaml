@@ -34,3 +34,7 @@
     - mirror-info
     - role: configure-mirrors
       set_apt_mirrors_trusted: True
+    # NOTE(ianw): 2020-03-27 : broken setuptools, until
+    #  https://github.com/pypa/virtualenv/issues/1752
+    # releases
+    - virtualenv-config
