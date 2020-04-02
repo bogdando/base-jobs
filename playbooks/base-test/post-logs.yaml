@@ -37,7 +37,7 @@
               - name: Download all logs
                 url: 'download-logs.sh'
                 metadata:
-                  command: 'curl "{[ upload_results.url }}/download-logs.sh | bash'
+                  command: 'curl "{{ upload_results.url }}/download-logs.sh | bash'
 
 - hosts: localhost
   # NOTE(pabelanger): We ignore_errors for the following tasks as not to fail
