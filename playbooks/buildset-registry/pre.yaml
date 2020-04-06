@@ -2,7 +2,7 @@
   tasks:
     - name: Install docker
       include_role:
-        name: install-docker
+        name: ensure-docker
     - name: Open the IPv4 port for the buildset registry
       become: true
       iptables:
