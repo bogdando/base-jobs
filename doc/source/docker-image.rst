@@ -158,7 +158,13 @@ Jobs
 
 .. zuul:autojob:: opendev-buildset-registry
 
+.. zuul:autojob:: opendev-buildset-registry-consumer
+
+.. zuul:autojob:: opendev-build-docker-image-base
+
 .. zuul:autojob:: opendev-build-docker-image
+
+.. zuul:autojob:: opendev-intermediate-registry
 
 .. zuul:autojob:: opendev-upload-docker-image
 
