@@ -494,3 +494,40 @@
     secrets:
       - secret: opendev-pypi
         name: pypi_info
+
+- job:
+    name: opendev-upload-git-mirror
+    description: |
+      Mirrors a tested project repository to a remote git server.  This is a
+      nodeless version of the job in zuul-jobs, defined here since this job's
+      playbook must be in a trusted repo.
+
+      .. zuul:jobvar:: git_mirror_credentials
+        :type: dict
+
+        This is expected to be a Zuul secret with these keys:
+
+        .. zuul:jobvar:: user
+
+          SSH user for the remote git repository
+
+        .. zuul:jobvar:: host
+
+          SSH host for the remote git repository
+
+        .. zuul:jobvar:: ssh_key
+
+          Literal private key contents.
+          Should start with something like ``-----BEGIN RSA PRIVATE KEY-----``.
+
+        .. zuul:jobvar:: host_key
+
+          SSH host key of the remote git server.
+          Can be obtained with ``ssh-keyscan -H <host>``.
+
+        .. zuul:jobvar:: target_repository
+
+          Path of the remote git repository
+    run: playbooks/upload-git-mirror/run.yaml
+    nodeset:
+      nodes: []
