@@ -1,0 +1,4 @@
+- hosts: localhost
+  roles:
+    - name: upload-git-mirror
+      git_mirror_repository: "{{ git_mirror_credentials.target_repository }}"
