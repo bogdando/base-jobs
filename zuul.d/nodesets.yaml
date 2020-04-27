@@ -60,6 +60,12 @@
         label: ubuntu-bionic-arm64
 
 - nodeset:
+    name: ubuntu-focal
+    nodes:
+      - name: ubuntu-focal
+        label: ubuntu-focal
+
+- nodeset:
     name: ubuntu-xenial-arm64
     nodes:
       - name: ubuntu-xenial-arm64
