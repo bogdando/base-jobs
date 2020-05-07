@@ -21,6 +21,8 @@
         # used.
         zuul_log_container: zuul_opendev_logs
       with_random_choice:
+        - '{{ opendev_cloud_ovh_bhs }}'
+        - '{{ opendev_cloud_ovh_gra }}'
         - '{{ opendev_cloud_rax_dfw }}'
         - '{{ opendev_cloud_rax_iad }}'
         - '{{ opendev_cloud_rax_ord }}'
