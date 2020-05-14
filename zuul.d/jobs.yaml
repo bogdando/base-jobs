@@ -486,6 +486,51 @@
         pass-to-parent: true
 
 - job:
+    name: opendev-promote-javascript-deployment-tarball
+    parent: opendev-promote-artifact-base
+    description: |
+      Publish a previously built branch-tip javascript content archive.
+
+      Use this in the promote pipeline to publish a branch tip
+      javascript content archive built in the gate pipeline.
+    vars:
+      download_artifact_job: build-javascript-deployment
+      download_artifact_type: javascript_content
+      artifact_extra_name: js-content
+    secrets:
+      - secret: opendev-zuul-tarballs
+        name: afs
+        pass-to-parent: true
+
+- job:
+    name: opendev-promote-javascript-deployment
+    parent: opendev-promote-artifact-base
+    description: |
+      Publish previously built branch-tip javascript content
+
+      Use this in the promote pipeline to publish branch tip
+      javascript content built in the gate pipeline. Expects
+      a tarball to have been published which will be extracted
+      into the target location.
+
+      .. zuul:jobvar:: download_artifact_job
+
+         The name of the job which built the artifacts which this
+         job should download and promote.
+
+      .. zuul:jobvar:: download_artifact_type
+
+         The type of the artifact to download (as specified in the
+         ``type`` attribute of the artifact metadata).
+    run: playbooks/artifacts/promote-deployment.yaml
+    vars:
+      download_artifact_job: build-javascript-deployment
+      download_artifact_type: javascript_content
+    secrets:
+      - secret: opendev-zuul-tarballs
+        name: afs
+
+- job:
     name: opendev-release-python
     description: Release python tarballs / wheels to pypi.
     pre-run: playbooks/release-python/pre.yaml
