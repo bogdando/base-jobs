@@ -82,7 +82,7 @@ logstash_processor_config:
     # screen-mistral-engine.txt: https://bugs.launchpad.net/mistral/+bug/1795068
     # screen-monasca-persister.txt: https://storyboard.openstack.org/#!/story/2003911
     # screen-ovn-northd.txt: https://bugs.launchpad.net/networking-ovn/+bug/1795069
-    - name: screen-(?!(peakmem_tracker|dstat|karaf|kubelet|mistral-engine|monasca-persister|ovn-northd)).*\.txt
+    - name: screen-(?!(peakmem_tracker|dstat|karaf|kubelet|mistral-engine|monasca-persister|monasca-api|ovn-northd)).*\.txt
       tags:
         - screen
         - oslofmt
